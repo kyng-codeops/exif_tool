@@ -58,11 +58,12 @@ Or you can change the very first line of the 'exif_tool.py' file to the location
 installed and setup.
 
 Example:
-My username happens to be 'esteban' and the home directory '/User/esteban' so the 'exif_tool.py' when pulled from git
-reads '#!/Users/esteban/venv/bin/python' because that is literally where my virtualenv interpreter resides. So just
-substitute you username inplace of 'esteban' and the tool will execute without needing to 'source ~/venv/bin/activate'
-each time you want to execute the python program/script.  If the script file has execute permissions, then typing in the
-name of the script prefixed by it's path should work:
+My username happens to be 'esteban' and the home directory '/User/esteban' so the first line of 'exif_tool.py' when
+pulled from git reads '#!/Users/esteban/venv/bin/python' because that is literally where my virtualenv interpreter
+resides. So just substitute you username inplace of 'esteban' and the tool will execute without needing to
+'source ~/venv/bin/activate' each time you want to execute the python program/script.  If the script file has execute
+permissions, then typing in the name of the script prefixed by it's path should work (assume we all know './' below
+means 'exif_tool.py' is in the current working directory):
 
 ./exif_tool.py -h
 
