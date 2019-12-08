@@ -1,7 +1,7 @@
-exif_tool is a command line tool meant to quickly list EXIF creation date and time stamps (also referred to as an image
-file's origin time stamp).  I created this so I could batch modify tens (or more) image files with a single command.
-Applications like Photos.app on macOS make use of the EXIF origin date to sort photos and the 'touch -t' command doesn't
-do anything to the EXIF datetime stamp unless the file already has it.
+This exif_tool.py is a command line tool meant to quickly list EXIF creation date and time stamps (also referred to as
+an image file's origin time stamp).  I created this so I could batch modify tens (or more) image files with a single
+command. Applications like Photos.app on macOS make use of the EXIF origin date to sort photos and the 'touch -t'
+command doesn't do anything to the EXIF datetime stamp unless the file already has it.
 
 Requirements:
 Python3.7+
@@ -24,14 +24,14 @@ pip3 install virtualenv --user
 
 You might get a message that says virtualenv is not in the system path. This is easy enough to add to either the
 ~/.bash_profile or ~/.bashrc file (depending on what platform you're on).  For macOS 12.14.x, pip3 tells me  it
-installed 'virtualenv' into '/User/<username>/Library/Python/3.7/bin' and that I should add this to my users path.  On
+installed 'virtualenv' into '/Users/<username>/Library/Python/3.7/bin' and that I should add this to my users path.  On
 macOS (vs Linux) the terminal app reads ~/.bash_profile, so I add the following to the '.bash_profile' file in my user
 home directory.
 
 export PATH="$PATH:~/Library/Python/3.7/bin"
 
 On macOS, restart a new terminal window and 'virtualenv' becomes available.  You can then create a virtual environment
-with required modules as follows (I'm using /User/<username>/env3 as the location of my virtual env):
+with required modules as follows (I'm using /Users/<username>/env3 as the location of my virtual env):
 
 virtualenv -p python3.7 ~/venv
 
@@ -58,7 +58,7 @@ Or you can change the very first line of the 'exif_tool.py' file to the location
 installed and setup.
 
 Example:
-My username happens to be 'esteban' and the home directory '/User/esteban' so the first line of 'exif_tool.py' when
+My username happens to be 'esteban' and the home directory '/Users/esteban' so the first line of 'exif_tool.py' when
 pulled from git reads '#!/Users/esteban/venv/bin/python' because that is literally where my virtualenv interpreter
 resides. So just substitute you username inplace of 'esteban' and the tool will execute without needing to
 'source ~/venv/bin/activate' each time you want to execute the python program/script.  If the script file has execute
