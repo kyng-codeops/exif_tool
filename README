@@ -1,0 +1,86 @@
+exif_tool is a command line tool meant to quickly list EXIF creation date and time stamps (also referred to as an image
+file's origin time stamp).  I created this so I could batch modify tens (or more) image files with a single command.
+Applications like Photos.app on macOS make use of the EXIF origin date to sort photos and the 'touch -t' command doesn't
+do anything to the EXIF datetime stamp unless the file already has it.
+
+Requirements:
+Python3.7+
+
+Install/Setup:
+There's no real install since it's just a Python script, however there is one add-on Python module needed and the script
+is written and tested in Python 3.7.  The required module is listed in the 'requirements.txt' file which can be
+installed using the standard Python tool 'pip' or more specifically 'pip3' with Python version 3.x.  It's best to make
+use of virtual Python environments rather than installing modules into the system level Python locations.  I used
+'virtualenv' but other virtual environment managers should work just fine (as would installing modules into the system
+level Python interpreter).  Virtual environments can eliminate conflicts between versions of system level modules or
+libraries, and you can easily create, delete, and recreate virtual environments.  This is par for the course for most
+Python savvy folks.  I also use PyCharm as my Python IDE which can build virtual environments without the need for
+installing 'virtualenv'.  If you don't want to install a Python IDE just to create quick virtual environments for
+Python, it can be setup at a user-level as follows (i.e. no need to install as root or an administrator).
+
+Setup with 'virtualenv':
+
+pip3 install virtualenv --user
+
+You might get a message that says virtualenv is not in the system path. This is easy enough to add to either the
+~/.bash_profile or ~/.bashrc file (depending on what platform you're on).  For macOS 12.14.x, pip3 tells me  it
+installed 'virtualenv' into '/User/<username>/Library/Python/3.7/bin' and that I should add this to my users path.  On
+macOS (vs Linux) the terminal app reads ~/.bash_profile, so I add the following to the '.bash_profile' file in my user
+home directory.
+
+export PATH="$PATH:~/Library/Python/3.7/bin"
+
+On macOS, restart a new terminal window and 'virtualenv' becomes available.  You can then create a virtual environment
+with required modules as follows (I'm using /User/<username>/env3 as the location of my virtual env):
+
+virtualenv -p python3.7 ~/venv
+
+To make the new Python3.7 environment active within the current terminal (so you can continue installing from the
+included 'requirements.txt' file), source the 'activate' file as follows:
+
+source ~/venv/bin/activate
+
+On macOS 12.14.6, the system only has pip3 by default, but 'virtualenv' creates environments that contain both 'pip'
+and 'pip3' (it doesn't matter which you use in that case).  The following command reads all modules listed in
+'requirements.txt' and installs it within the Python interpreter installed in '~/venv'.
+
+pip3 install -r requirements.txt
+
+For some reason, on macOS 12.14.6, I get a failure message saying pip cannot find the version in the 'requirements.txt'
+file.  But since this project only uses one added module you can manually install 'pip3 install piexif==1.1.3' which
+oddly installs without issues for me.
+
+If you want to execute the 'exif_tool.py' you can either type (while the virtual env is active):
+
+python exif_tool.py -h
+
+Or you can change the very first line of the 'exif_tool.py' file to the location of the virtual env interpreter you just
+installed and setup.
+
+Example:
+My username happens to be 'esteban' and the home directory '/User/esteban' so the 'exif_tool.py' when pulled from git
+reads '#!/Users/esteban/venv/bin/python' because that is literally where my virtualenv interpreter resides. So just
+substitute you username inplace of 'esteban' and the tool will execute without needing to 'source ~/venv/bin/activate'
+each time you want to execute the python program/script.  If the script file has execute permissions, then typing in the
+name of the script prefixed by it's path should work:
+
+./exif_tool.py -h
+
+usage: exif_tool.py [-h] [-t SET] [-l] [file [file ...]]
+
+Set or list the EXIF creation date and time on image files.
+
+positional arguments:
+  file               file_name or file_name_pattern
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -t SET, --set SET  integer datetime formatted: [[CC]YY]mmddHHMM.[SS]
+  -l, --list         list EXIF dates if they exist
+
+
+If you don't put the 'exif_tool.py' in a folder included in the PATH, you'll always need to type the fully qualified
+path to the program.
+
+Lastly, you can deactivate the virtual python environment by typing 'deactivate' which returns your terminal window to
+the normal system version of Python.
