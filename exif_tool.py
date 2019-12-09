@@ -2,15 +2,14 @@
 #
 # Author:   kyng-codeops
 # Date:     2019/12/02
-# Updated:  2019/12/07
+# Updated:  2019/12/09
 # Version:  1.0
 
 from datetime import datetime
 import piexif
 import argparse
 import sys
-
-# import glob
+import glob
 
 
 def set_exif_datetime(file, yr, m, d, hr, mn, sec):
@@ -48,27 +47,28 @@ def get_exif_datetime(file):
 def main(args):
     parser = argparse.ArgumentParser(description='Set or list the EXIF creation date and time on image files.')
     parser.add_argument('-t', '--set', nargs=1, required=False,
-
                         help='integer datetime formatted: [[CC]YY]mmddHHMM.[SS]')
     parser.add_argument('-l', '--list', action='store_true', required=False,
                         help='list EXIF dates if they exist')
     parser.add_argument('file', nargs='*',
                         help='file_name or file_name_pattern')
 
-    dt_set = parser.parse_args(args)
-    """
-    #----No need for glob since the shell on macOS 10.14.6 expands *.jpg to a list of all jpeg files
-    
-    img_files = []
-    if isinstance(dt_set.file, str):
-        f_pattern = dt_set.file
-        img_files = glob.glob("./" + f_pattern)
-    elif isinstance(dt_set.file, list):
+    try:
+        dt_set = parser.parse_args(args)
         img_files = dt_set.file
+    # except argparse.ArgumentError:
+        # print("Error: {} while processing arguments".format(msg))
+        # return 1
+    except:
+        return 1
 
-    """
-
-    img_files = dt_set.file
+    if len(img_files) == 0 and not dt_set.set and dt_set.list:
+        # use glob to create default list of files if none when running in list mode only
+        f_patterns = ['*.jpg', '*.jpeg', '*.webp', '*.tif', '*.tiff']
+        for i in f_patterns:
+            a = glob.glob("./" + i)
+            if len(a) > 0:
+                img_files += a
 
     if dt_set.set:
         # Read the Linux/BSD 'touch -t' format [[CC]YY]mmddHHMM.[SS]
