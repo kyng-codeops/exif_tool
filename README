@@ -4,7 +4,7 @@ command. Applications like Photos.app on macOS make use of the EXIF origin date 
 command doesn't do anything to the EXIF datetime stamp unless the file already has it.
 
 Requirements:
-Python3.7+
+Python3.6+ (tested 3.6.10)
 
 Install/Setup:
 There's no real install since it's just a Python script, however there is one add-on Python module needed and the script
